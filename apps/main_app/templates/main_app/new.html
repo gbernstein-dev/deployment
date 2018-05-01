@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>New Product</title>
+</head>
+<body>
+  <a href='/index'> Return to index </a>
+  <a href='/logout'> Logout </a>
+  <form action='make_product' method='post'>
+    {% csrf_token %}
+    Product Name: <input type='text' name='product_name'>
+    <input type='submit' value='make_product'>
+  </form>
+
+</body>
+</html>

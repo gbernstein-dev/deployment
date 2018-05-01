@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'main_app/style.css' %}">
+  <title>Index</title>
+</head>
+<body>
+  <h1> Welcome, {{current_user.name}} </h1>
+  <a href='/new'> Create new product AND add to wishlist! </a>
+  <h2> Your Wish List: </h2>
+  {% for item in wish_list%}
+      <p> {{item.product.product_name}} </p>
+      <form action='/remove_from_wishlist' method='post'>
+        {% csrf_token %}
+        <input type='hidden' name='name' value='{{item.product.product_name}}'>
+        <input type='submit' value='Remove {{item.product.product_name}} from Wishlist'>
+      </form>
+
+  {% endfor %}
+  <h2> Your Created Products: </h2>
+  {% for item in user_products %}
+    <p> You created {{item.product_name}} on {{item.created_at}} </p>
+    <form action='/delete_product' method='post'>
+        {% csrf_token %}
+        <input type='hidden' name='id' value='{{item.id}}'>
+        <input type='submit' value='Remove {{item.product_name}} from Database'>
+    </form>    
+  {% endfor %}
+  
+  <h2> Total Created Products: </h2>
+  <table>
+    <tr> 
+      <th> Product Name </th>
+      <th> Product Creator </th>
+      <th> Date Created </th>
+      <th> Add to Wishlist </th>
+    </tr>
+  {% if products > 0 %} 
+    {% for item in products %}
+    <tr>
+      <td>
+        <form action='/show/<int:product_id>' method='get'>
+          {% csrf_token %}
+          <input type='hidden' name='name' value='{{item.product_name}}'>
+          <input type='submit' value='{{item.product_name}}'>
+        </form> 
+      </td> 
+      <td> {{item.creator.email}} </td>
+      <td> {{item.created_at}} </td>
+      <td> 
+        <form action='/add_to_wishlist' method='post'>
+          {% csrf_token %}
+          <input type='hidden' name='name' value='{{item.product_name}}'>
+          <input type='submit' value='Add to Wish List!'>
+        </form> 
+      </td>
+    </tr> 
+    {% endfor %}
+  {% endif %}
+  </table>
+
+  <form class='logout' action='logout' method='post'>
+    {% csrf_token %}
+    <input type='submit' value='logout'>
+  </form>
+</body>
+</html>

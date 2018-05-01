@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'main_app/style.css' %}">
+  <title>Login/Register</title>
+</head>
+<body>
+  {% if messages %}
+    <ul class='messages'>
+      {%for message in messages %}
+        <li{% if message.tags %} class='{{ message.tags }}' {% endif %}> {{message}}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  <h1> Product App </h1>
+  <div class= login_page> 
+  <h2> Login Form </h2>
+  <form action='/login', method='post'>
+    {% csrf_token %}
+    Email: <input type='text' name='email'>
+    Password: <input type='password' name='password'>
+    <input type='submit' name='login' value='Submit'>
+  </form>
+  </div>
+  <div class=login_page> 
+    <h2> Create new user! </h2>
+    <form action='/create', method='post'>
+      {% csrf_token %}
+      Name: <input type='text' name='name'>
+      Email: <input type='text' name='email'>
+      Date Hired: <input type='date' name='date_hired'>
+      Password: <input type='password' name='password'>
+      Password Confirm: <input type= 'password' name='password_confirm'>
+      <input type='submit' name='create' value='Submit'>
+    </form>
+  </div>
+  <p> <a href='/index'> Return to index </a> </p>
+  <p> <a href='/logout'> Logout </a> </p>
+
+</body>
+</html>

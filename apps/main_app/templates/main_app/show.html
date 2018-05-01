@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Product</title>
+</head>
+<body>
+  {% for item in products%}
+    <p> Product Name: {{item.product_name}} </p>
+    <p> Creator: {{item.creator.email}} </p>
+  {% endfor %}
+</body>
+</html>
