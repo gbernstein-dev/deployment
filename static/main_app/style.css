@@ -1,0 +1,13 @@
+body{
+  margin: 50px;
+}
+
+.logout{
+  margin-left: 600px;
+}
+table{
+  border-collapse: collapse;
+}
+table, th, td {
+  border: 1px solid black;
+}
